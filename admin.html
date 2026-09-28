@@ -387,7 +387,7 @@ h1 {
 
 
 /* =========================
-   曲設定
+   楽曲設定
 ========================= */
 
 const SONG_ID =
@@ -552,7 +552,6 @@ async function login() {
 
 
   const {
-    data,
     error
   } =
     await client.auth
@@ -729,7 +728,7 @@ function showUpdateTime() {
 
 
 /* =========================
-   この楽曲の永久保存集計を取得
+   この楽曲の集計だけ取得
 ========================= */
 
 async function loadStats() {
@@ -746,7 +745,7 @@ async function loadStats() {
       )
 
       .select(
-        "stat_date, service, song_id, gift_count"
+        "stat_date, service, gift_count, song_id"
       )
 
       .eq(
@@ -771,6 +770,10 @@ async function loadStats() {
       `<div class="error">
         集計データを読み込めませんでした。
       </div>`;
+
+
+    grandTotal.textContent =
+      "0";
 
 
     return;
@@ -1031,10 +1034,6 @@ async function checkSession() {
     data.session
   ) {
 
-    /*
-      前回ログイン済みなら
-      そのまま管理画面
-    */
 
     showAdmin();
 
@@ -1043,10 +1042,6 @@ async function checkSession() {
 
   } else {
 
-    /*
-      未ログインなら
-      ログイン画面
-    */
 
     showLogin();
 
